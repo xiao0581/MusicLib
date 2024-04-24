@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MusicServer.Model;
+using System.Collections.Generic;
 
 
 
@@ -17,18 +18,31 @@ namespace MusicServer.Controllers
             _musicRepository = musicRepository;
         }
 
-        // GET: api/<MusicsController>
-        [HttpGet]
-        public List<Music> GetAll()
-        {
-          return _musicRepository.GetAllMusics().ToList();
-        }
+      
 
         // GET api/<MusicsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpGet]
+        public ActionResult<IEnumerable<Music>> GetBy([FromQuery] string? sortBy)
         {
-            return "value";
+            IEnumerable<Music> musicList= _musicRepository.GetSortBy(null);
+            if (sortBy != null)
+            {    
+
+                musicList = _musicRepository.GetSortBy(sortBy);
+            }
+
+            if (musicList.Any())
+            {
+                return Ok(musicList);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+
         }
 
         // POST api/<MusicsController>

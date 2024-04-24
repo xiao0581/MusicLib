@@ -30,9 +30,25 @@ namespace MusicServer.Model
             return _musics;
         }
 
-        public List<Music> GetMusicsByArtist(string artist)
+        public IEnumerable<Music> GetSortBy(string sortBy)
+
         {
-            return _musics.Where(m => m.Artist == artist).ToList();
+            IEnumerable<Music> sortMusics = new List<Music>(_musics);
+
+            switch (sortBy)
+            {
+                case "Title":
+                    sortMusics = _musics.OrderBy(m => m.Title);
+                    break;
+                case "Artist":
+                    sortMusics = _musics.OrderByDescending(m => m.Artist);
+                    break;
+                case "Album":
+                    sortMusics = _musics.OrderBy(m => m.Album);
+                    break;
+              
+            }
+            return sortMusics;
         }
 
         public List<Music> GetMusicsByGenre(string genre)
