@@ -10,6 +10,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<MusicRepository>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "AllowAll",
+                              policy =>
+                              {
+                                  policy.AllowAnyOrigin()
+                                  .AllowAnyMethod()
+                                  .AllowAnyHeader();
+                              });
+});
 
 var app = builder.Build();
 
@@ -23,5 +33,6 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseCors("AllowAll");
 app.Run();
+
