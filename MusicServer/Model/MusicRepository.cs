@@ -1,11 +1,18 @@
 ﻿namespace MusicServer.Model
 {
     public class MusicRepository
+        
     {
-        private List<Music> _musics = new List<Music>();
+        private int _nextId = 3;
+        private List<Music> _musics = new (){ 
+         new Music("Song1", "Artist1", "Album1", "Genre1", 2021, "Path1"),
+            new Music("Song2", "Artist2", "Album2", "Genre2", 2022, "Path2"),
+            new Music("Song3", "Artist3", "Album3", "Genre3", 2023, "Path3"),            
+        };
 
         public void AddMusic(Music music)
         {
+            music.Id = _nextId++;
             _musics.Add(music);
         }
 
