@@ -21,7 +21,7 @@ namespace MusicServer.Controllers
         [HttpGet]
         public List<Music> GetAll()
         {
-          return   _musicRepository.GetAllMusics().ToList();
+            return null;
         }
 
         // GET api/<MusicsController>/5
