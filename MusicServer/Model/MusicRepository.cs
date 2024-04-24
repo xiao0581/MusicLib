@@ -1,17 +1,21 @@
-﻿namespace MusicServer.Model
+﻿using Microsoft.VisualBasic;
+
+namespace MusicServer.Model
 {
     public class MusicRepository
         
     {
         private int _nextId = 3;
-        private List<Music> _musics = new (){ 
-         new Music("Song1", "Artist1", "Album1", "Genre1", 2021, "Path1"),
-            new Music("Song2", "Artist2", "Album2", "Genre2", 2022, "Path2"),
-            new Music("Song3", "Artist3", "Album3", "Genre3", 2023, "Path3"),            
+        private List<Music> _musics = new()
+        {
+            new Music() {Id = 1, Title = "Song1", Artist = "Artist1", Album = "Album1", Genre = "Genre", Year = 1997, Path = ""},
+            new Music() {Id = 2, Title = "Song2", Artist = "Artist2", Album = "Album2", Genre = "Genre", Year = 1998, Path = ""},
+            new Music() {Id = 3, Title = "Song3", Artist = "Artist3", Album = "Album3", Genre = "Genre", Year = 1999, Path = ""}
         };
-
+        
         public void AddMusic(Music music)
         {
+            
             music.Id = _nextId++;
             _musics.Add(music);
         }
