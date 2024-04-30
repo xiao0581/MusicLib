@@ -56,19 +56,25 @@ namespace MusicServer.Model
             return sortMusics;
         }
 
-        public List<Music> GetMusicsByGenre(string genre)
+      
+       public List<Music> DeleteMusic(int id)
         {
-            return _musics.Where(m => m.Genre == genre).ToList();
+            return _musics.Where(m => m.Id != id).ToList();
         }
-
-        public List<Music> GetMusicsByYear(int year)
+        public Music UpdateMusic(int id, Music music)
         {
-            return _musics.Where(m => m.Year == year).ToList();
+            Music musicToUpdate = _musics.FirstOrDefault(m => m.Id == id);
+            if (musicToUpdate != null)
+            {
+                musicToUpdate.Title = music.Title;
+                musicToUpdate.Artist = music.Artist;
+                musicToUpdate.Album = music.Album;
+                musicToUpdate.Genre = music.Genre;
+                musicToUpdate.Year = music.Year;
+                musicToUpdate.Path = music.Path;
+            }
+            return musicToUpdate;
         }
-
-        public List<Music> GetMusicsByAlbum(string album)
-        {
-            return _musics.Where(m => m.Album == album).ToList();
-        }
+        
     }
 }

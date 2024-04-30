@@ -53,15 +53,22 @@ namespace MusicServer.Controllers
         }
 
         // PUT api/<MusicsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+       
 
         // DELETE api/<MusicsController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            Music music = _musicRepository.GetAllMusics().FirstOrDefault(m => m.Id == id);
+            if (music != null)
+            {
+                _musicRepository.RemoveMusic(music);
+            }
+        }
+        [HttpPost("id")]
+        public void Update([FromBody] Music music)
+        {
+            _musicRepository.UpdateMusic(music.Id, music);
         }
     }
 }
