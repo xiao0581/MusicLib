@@ -34,20 +34,25 @@ namespace MusicServer.Model
 
         {
             IEnumerable<Music> sortMusics = new List<Music>(_musics);
+            if (sortBy != null) {
+                switch (sortBy.ToLower())
+                {
+                    case "title":
+                        sortMusics = _musics.OrderBy(m => m.Title);
+                        break;
+                    case "artist":
+                        sortMusics = _musics.OrderByDescending(m => m.Artist);
+                        break;
+                    case "album":
+                        sortMusics = _musics.OrderBy(m => m.Album);
+                        break;
+                    case "year":
+                        sortMusics = _musics.OrderByDescending(m => m.Year);
+                        break;
 
-            switch (sortBy)
-            {
-                case "Title":
-                    sortMusics = _musics.OrderBy(m => m.Title);
-                    break;
-                case "Artist":
-                    sortMusics = _musics.OrderByDescending(m => m.Artist);
-                    break;
-                case "Album":
-                    sortMusics = _musics.OrderBy(m => m.Album);
-                    break;
-              
+                }
             }
+            
             return sortMusics;
         }
 
