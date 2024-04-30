@@ -47,8 +47,9 @@ namespace MusicServer.Controllers
 
         // POST api/<MusicsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Music music)
         {
+            _musicRepository.AddMusic(music);
         }
 
         // PUT api/<MusicsController>/5
